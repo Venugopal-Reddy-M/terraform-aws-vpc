@@ -1,3 +1,3 @@
-output "availability_zones" {
+output "az_info" {
   value = data.aws_availability_zones.available
 }
