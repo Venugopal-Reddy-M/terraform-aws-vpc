@@ -22,5 +22,14 @@ locals {
     },
     var.igw_tags
     )
-
+    
+    #subnet_tags
+    subnet_final_tags = merge(
+    local.common_tags,
+    {
+        #roboshop-dev-public-us-east-la
+        Name = "${var.project}-${var.environment}-public-${count.index + 1}"
+    },
+    var.subnet_tags
+    )
 }
