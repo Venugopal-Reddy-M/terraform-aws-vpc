@@ -17,6 +17,11 @@ variable "vpc_tag" {
   default = {}
 }
 
+variable "igw_tags" {
+  type = map
+  default = {}
+}
+
 # variable "name" {
 #   default = "roboshop-dev"
 # }
