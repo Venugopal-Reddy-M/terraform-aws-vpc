@@ -33,11 +33,26 @@ locals {
     # var.subnet_tags
     # )
 
-    route_table_final_tags = merge(
+    route_table_public_final_tags = merge(
     local.common_tags,
     {
-        Name = "${var.project}-${var.environment}-public"
+        Name = "${var.project}-public"
     },
     var.public_route_table_tags
     )
+    
+    route_table_private_final_tags = merge(
+    local.common_tags,
+    {
+        Name = "${var.project}-private"
+    },
+    var.private_route_table_tags
+    )
+    route_table_database_final_tags = merge(
+    local.common_tags,
+    {
+        Name = "${var.project}-database"
+    },
+    var.database_route_table_tags
+    )   
 }

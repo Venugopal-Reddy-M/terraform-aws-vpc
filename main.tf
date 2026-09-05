@@ -69,5 +69,17 @@ resource "aws_subnet" "database_subnet" {
 resource "aws_route_table" "main" {
   vpc_id = aws_vpc.main.id
 
-  tags = local.route_table_final_tags
+  tags = local.route_table_public_final_tags
+}
+#private-route-table-block
+resource "aws_route_table" "main" {
+  vpc_id = aws_vpc.main.id
+
+  tags = local.route_table_private_final_tags
+}
+#database-route-table-block
+resource "aws_route_table" "main" {
+  vpc_id = aws_vpc.main.id
+
+  tags = local.route_table_database_final_tags
 }
