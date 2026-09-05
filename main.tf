@@ -25,7 +25,7 @@ resource "aws_subnet" "public_subnet" {
     local.common_tags,
     {
         #roboshop-dev-public-us-east-la
-        Name = "${var.project}-${var.environment}-public-${aws_availability_zones.available.names}"
+        Name = "${var.project}-${var.environment}"
     },
     var.subnet_tags
     )
