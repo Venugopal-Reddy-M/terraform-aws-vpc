@@ -16,10 +16,10 @@ resource "aws_internet_gateway" "main" {
 
 #public-subnet-block
 resource "aws_subnet" "public_subnet" {
-  count = length(var.cidr_block)
+  count = length(var.public_cidr_block)
   vpc_id     = aws_vpc.main.id
   availability_zone = data.aws_availability_zones.available.names[count.index]
-  cidr_block = var.cidr_block[count.index ]
+  cidr_block = var.public_cidr_block[count.index ]
 
   tags = merge(
     local.common_tags,
@@ -33,10 +33,10 @@ resource "aws_subnet" "public_subnet" {
 
 #private-subnet-block
 resource "aws_subnet" "private_subnet" {
-  count = length(var.cidr_block)
+  count = length(var.private_cidr_block)
   vpc_id     = aws_vpc.main.id
   availability_zone = data.aws_availability_zones.available.names[count.index]
-  cidr_block = var.cidr_block[count.index ]
+  cidr_block = var.private_cidr_block[count.index ]
 
   tags = merge(
     local.common_tags,
@@ -50,10 +50,10 @@ resource "aws_subnet" "private_subnet" {
 
 #database-subnet-block
 resource "aws_subnet" "database_subnet" {
-  count = length(var.cidr_block)
+  count = length(var.database_cidr_block)
   vpc_id     = aws_vpc.main.id
   availability_zone = data.aws_availability_zones.available.names[count.index]
-  cidr_block = var.cidr_block[count.index ]
+  cidr_block = var.database_cidr_block[count.index ]
 
   tags = merge(
     local.common_tags,
