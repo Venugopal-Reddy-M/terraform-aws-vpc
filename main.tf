@@ -21,5 +21,12 @@ resource "aws_subnet" "public_subnet" {
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block = var.cidr_block[count.index ]
 
-  tags = local.subnet_final_tags
+  tags = merge(
+    local.common_tags,
+    {
+        #roboshop-dev-public-us-east-la
+        Name = "${var.project}-${var.environment}-public-${data.aws_availability_zones.available.names[count.index]}"
+    },
+    var.subnet_tags
+    )
 }
