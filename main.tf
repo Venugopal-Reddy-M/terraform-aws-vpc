@@ -85,6 +85,8 @@ resource "aws_route_table" "database" {
 }
 
 resource "aws_route_table_association" "example" {
-  subnet_id      = aws_subnet.public_subnet[0].id
+ count = length(aws_subnet.public_subnet)
+  subnet_id      = aws_subnet.public_subnet[count.index].id
+  #subnet_id      = aws_subnet.private_subnet[1].id
   route_table_id = aws_route_table.public.id
 }
