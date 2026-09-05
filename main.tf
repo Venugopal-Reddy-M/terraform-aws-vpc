@@ -104,3 +104,11 @@ resource "aws_route_table_association" "database" {
   subnet_id      = aws_subnet.database_subnet[count.index].id
   route_table_id = aws_route_table.database.id
 }
+
+resource "aws_eip" "nat" {
+  domain = "vpc"
+
+  tags = {
+    Name = "nat-eip"
+  }
+}
