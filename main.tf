@@ -21,7 +21,5 @@ resource "aws_subnet" "public_subnet" {
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block = var.cidr_block[count.index ]
 
-  tags = {
-    Name = "Main"
-  }
+  tags = local.subnet_final_tags
 }
