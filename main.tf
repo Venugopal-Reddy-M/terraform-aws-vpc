@@ -18,7 +18,8 @@ resource "aws_internet_gateway" "main" {
 resource "aws_subnet" "public_subnet" {
   count = length(var.cidr_block)
   vpc_id     = aws_vpc.main.id
-  cidr_block = var.cidr_block[count.index[0]]
+  availability_zone = data.aws_availability_zones.available.names[count.index]
+  cidr_block = var.cidr_block[count.index ]
 
   tags = {
     Name = "Main"
