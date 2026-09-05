@@ -83,3 +83,8 @@ resource "aws_route_table" "database" {
 
   tags = local.route_table_database_final_tags
 }
+
+resource "aws_route_table_association" "example" {
+  subnet_id      = aws_subnet.public_subnet[0].id
+  route_table_id = aws_route_table.public.id
+}
