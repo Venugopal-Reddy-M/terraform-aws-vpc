@@ -28,7 +28,7 @@ locals {
     local.common_tags,
     {
         #roboshop-dev-public-us-east-la
-        Name = "${var.project}-${var.environment}-public-${count.index + 1}"
+        Name = "${var.project}-${var.environment}-public-${data.aws_availability_zones.available.names[count.index]}"
     },
     var.subnet_tags
     )
