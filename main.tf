@@ -84,8 +84,23 @@ resource "aws_route_table" "database" {
   tags = local.route_table_database_final_tags
 }
 
+# public-subnet_association-route-block
 resource "aws_route_table_association" "public" {
  count = length(aws_subnet.public_subnet)
   subnet_id      = aws_subnet.public_subnet[count.index].id
   route_table_id = aws_route_table.public.id
+}
+
+# private-subnet_association-route-block
+resource "aws_route_table_association" "private" {
+ count = length(aws_subnet.private_subnet)
+  subnet_id      = aws_subnet.private_subnet[count.index].id
+  route_table_id = aws_route_table.private.id
+}
+
+# database-subnet_association-route-block
+resource "aws_route_table_association" "database" {
+ count = length(aws_subnet.database_subnet)
+  subnet_id      = aws_subnet.database_subnet[count.index].id
+  route_table_id = aws_route_table.database.id
 }
