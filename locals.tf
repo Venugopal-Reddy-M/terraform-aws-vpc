@@ -23,13 +23,13 @@ locals {
     var.igw_tags
     )
     
-    #subnet_tags
-    subnet_final_tags = merge(
-    local.common_tags,
-    {
-        #roboshop-dev-public-us-east-la
-        Name = "${var.project}-${var.environment}-public-${data.aws_availability_zones.available.names[count.index]}"
-    },
-    var.subnet_tags
-    )
+    # #subnet_tags
+    # subnet_final_tags = merge(
+    # local.common_tags,
+    # {
+    #     #roboshop-dev-public-us-east-la
+    #     Name = "${var.project}-${var.environment}-public-${data.aws_availability_zones.available.names[count.index]}"
+    # },
+    # var.subnet_tags
+    # )
 }
