@@ -32,4 +32,12 @@ locals {
     # },
     # var.subnet_tags
     # )
+
+    route_table_final_tags = merge(
+    local.common_tags,
+    {
+        Name = "${var.project}-${var.environment}-public"
+    },
+    var.public_route_table_tags
+    )
 }

@@ -42,6 +42,7 @@ variable "subnet_tags" {
   default = {}
 }
 
-# variable "name" {
-#   default = "roboshop-dev"
-# }
+variable "public_route_table_tags" {
+  type = map
+  default = {}
+}

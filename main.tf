@@ -64,3 +64,10 @@ resource "aws_subnet" "database_subnet" {
     var.subnet_tags
     )
 }
+
+# public-route-table-block
+resource "aws_route_table" "main" {
+  vpc_id = aws_vpc.main.id
+
+  tags = local.route_table_final_tags
+}
