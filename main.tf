@@ -126,7 +126,13 @@ resource "aws_nat_gateway" "main" {
   subnet_id     = aws_subnet.public_subnet[0].id ###  hero 0 means us-east-1a
 
   tags = {
-    Name = local.nat_gateway_final_tags
+    Name =  merge(
+    local.common_tags,
+    {
+        Name = "${var.project}-${var.environment}"
+    },
+    var.nat_gateway_tags
+    )
   }
 
   # To ensure proper ordering, it is recommended to add an explicit dependency
