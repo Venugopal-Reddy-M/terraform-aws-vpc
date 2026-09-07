@@ -73,7 +73,7 @@ locals {
     nat_gateway_final_tags = merge(
     local.common_tags,
     {
-        Name = "${var.project}-${var.environment}-nat-gateway"
+        Name = "${var.project}-${var.environment}"
     },
     var.nat_gateway_tags
     )
