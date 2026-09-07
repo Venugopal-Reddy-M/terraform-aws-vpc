@@ -108,7 +108,11 @@ resource "aws_route_table_association" "database" {
 resource "aws_eip" "nat" {
   domain = "vpc"
 
-  tags = {
-    Name = "nat-eip"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+        Name = "${var.project}-${var.environment}-nat"
+    },
+    var.nat_gateway_tags
+    )
 }
