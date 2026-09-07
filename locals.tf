@@ -40,7 +40,7 @@ locals {
     },
     var.public_route_table_tags
     )
-    
+
     route_table_private_final_tags = merge(
     local.common_tags,
     {
@@ -55,4 +55,12 @@ locals {
     },
     var.database_route_table_tags
     )   
+    #nat_gateway_tags
+    nat_gateway_final_tags = merge(
+    local.common_tags,
+    {
+        Name = "${var.project}-${var.environment}-nat"
+    },
+    var.nat_gateway_tags
+    )
 }
