@@ -125,15 +125,13 @@ resource "aws_nat_gateway" "main" {
   allocation_id = aws_eip.elastic_ip.id
   subnet_id     = aws_subnet.public_subnet[0].id ###  hero 0 means us-east-1a
 
-  tags = {
-    Name =  merge(
+  tags = merge(
     local.common_tags,
     {
         Name = "${var.project}-${var.environment}-nat"
     },
     var.nat_gateway_tags
     )
-  }
 
   # To ensure proper ordering, it is recommended to add an explicit dependency
   # on the Internet Gateway for the VPC.
