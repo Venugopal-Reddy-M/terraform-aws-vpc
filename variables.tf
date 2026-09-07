@@ -56,7 +56,7 @@ variable "database_route_table_tags" {
   default = {}
 }
 
-variable "nat_gateway_tags" {
+variable "elastic_ip_tags" {
   type = map
   default = {}
   

@@ -105,14 +105,8 @@ resource "aws_route_table_association" "database" {
   route_table_id = aws_route_table.database.id
 }
 
-resource "aws_eip" "nat" {
+resource "aws_eip" "elastic_ip" {
   domain = "vpc"
 
-  tags = merge(
-    local.common_tags,
-    {
-        Name = "${var.project}-${var.environment}-nat"
-    },
-    var.nat_gateway_tags
-    )
+  tags = local.elastic_ip_final_tags
 }

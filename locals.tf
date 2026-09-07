@@ -55,12 +55,12 @@ locals {
     },
     var.database_route_table_tags
     )   
-    #nat_gateway_tags
-    nat_gateway_final_tags = merge(
+    #elastic_ip_tags
+    elastic_ip_final_tags = merge(
     local.common_tags,
     {
-        Name = "${var.project}-${var.environment}-nat"
+        Name = "${var.project}-${var.environment}-elastic-ip"
     },
-    var.nat_gateway_tags
+    var.elastic_ip_tags
     )
 }
