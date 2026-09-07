@@ -129,7 +129,7 @@ resource "aws_nat_gateway" "main" {
     Name =  merge(
     local.common_tags,
     {
-        Name = "${var.project}-${var.environment}"
+        Name = "${var.project}-${var.environment}-nat"
     },
     var.nat_gateway_tags
     )
