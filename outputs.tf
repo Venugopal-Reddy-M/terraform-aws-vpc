@@ -6,4 +6,5 @@
 output "aws_availability_zones" {
   description = "List of availability zones"
   value       = data.aws_availability_zones.available.names
+  #value       = data.aws_availability_zones.available
 }

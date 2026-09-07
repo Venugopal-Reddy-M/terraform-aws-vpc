@@ -20,6 +20,7 @@ resource "aws_subnet" "public_subnet" {
   vpc_id     = aws_vpc.main.id
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block = var.public_cidr_block[count.index ]
+  map_public_ip_on_launch = true
 
   tags = merge(
     local.common_tags,
@@ -27,7 +28,7 @@ resource "aws_subnet" "public_subnet" {
         #roboshop-dev-public-us-east-la/1b
         Name = "${var.project}-${var.environment}-public-${data.aws_availability_zones.available.names[count.index]}"
     },
-    var.subnet_tags
+    var.public_subnet_tags
     )
 }
 
@@ -44,7 +45,7 @@ resource "aws_subnet" "private_subnet" {
         #roboshop-dev-private-us-east-la/1b
         Name = "${var.project}-${var.environment}-private-${data.aws_availability_zones.available.names[count.index]}"
     },
-    var.subnet_tags
+    var.private_subnet_tags
     )
 }
 
@@ -61,8 +62,8 @@ resource "aws_subnet" "database_subnet" {
         #roboshop-dev-database-us-east-la/1b
         Name = "${var.project}-${var.environment}-database-${data.aws_availability_zones.available.names[count.index]}"
     },
-    var.subnet_tags
-    )
+    var.database_subnet_tags
+    ) 
 }
 
 # public-route-table-block
@@ -82,6 +83,29 @@ resource "aws_route_table" "database" {
   vpc_id = aws_vpc.main.id
 
   tags = local.route_table_database_final_tags
+}
+# public-aws-route-block
+resource "aws_route" "public" {
+  route_table_id            = aws_route_table.public.id
+  destination_cidr_block    = "0.0.0.0/0"
+  ### this is for internet gateway
+  gateway_id                = aws_internet_gateway.main.id
+}
+
+# private-aws-route-block
+resource "aws_route" "private" {
+  route_table_id            = aws_route_table.private.id
+  destination_cidr_block    = "0.0.0.0/0"
+  ### this is for nat gateway
+  nat_gateway_id                = aws_nat_gateaway.main.id
+}
+
+# database-aws-route-block
+resource "aws_route" "database" {
+  route_table_id            = aws_route_table.database.id
+  destination_cidr_block    = "0.0.0.0/0"
+   ### this is for nat gateway
+  nat_gateway_id                = aws_nat_gateaway.main.id
 }
 
 # public-subnet_association-route-block
@@ -109,4 +133,18 @@ resource "aws_eip" "elastic_ip" {
   domain = "vpc"
 
   tags = local.elastic_ip_final_tags
+}
+
+##### nat gateway-block #####
+resource "aws_nat_gateway" "main" {
+  allocation_id = aws_eip.elastic_ip.id
+  subnet_id     = aws_subnet.public_subnet[0].id ###  hero 0 means us-east-1a
+
+  tags = {
+    Name = local.nat_gateway_final_tags
+  }
+
+  # To ensure proper ordering, it is recommended to add an explicit dependency
+  # on the Internet Gateway for the VPC.
+  depends_on = [aws_internet_gateway.main]
 }

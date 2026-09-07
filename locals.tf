@@ -22,7 +22,10 @@ locals {
     },
     var.igw_tags
     )
-    
+
+    #availability-zones_slice
+    #az_names = slice(data.aws_availability_zones.available.names, 0,2)
+
     # #subnet_tags
     # subnet_final_tags = merge(
     # local.common_tags,
@@ -36,7 +39,7 @@ locals {
     route_table_public_final_tags = merge(
     local.common_tags,
     {
-        Name = "${var.project}-public"
+        Name = "${var.project}-${var.environment}-public"
     },
     var.public_route_table_tags
     )
@@ -44,18 +47,19 @@ locals {
     route_table_private_final_tags = merge(
     local.common_tags,
     {
-        Name = "${var.project}-private"
+        Name = "${var.project}-${var.environment}-private"
     },
     var.private_route_table_tags
     )
     route_table_database_final_tags = merge(
     local.common_tags,
     {
-        Name = "${var.project}-database"
+        Name = "${var.project}-${var.environment}-database"
     },
     var.database_route_table_tags
     )   
-    #elastic_ip_tags
+
+    ####elastic_ip_tags####
     elastic_ip_final_tags = merge(
     local.common_tags,
     {
@@ -63,4 +67,8 @@ locals {
     },
     var.elastic_ip_tags
     )
+
+
+    ####nat_gateway_tags####
+   nat_gateway_final_tags = merge(local.common_tags, { Name = "${var.project}-${var.environment}-nat-gateway" }, var.nat_gateway_tags)
 }
