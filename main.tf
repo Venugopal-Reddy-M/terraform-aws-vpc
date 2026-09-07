@@ -121,7 +121,7 @@ resource "aws_eip" "elastic_ip" {
 }
 
 ##### nat gateway-block #####
-resource "aws_nat_gateway" "this" {
+resource "aws_nat_gateway" "main" {
   allocation_id = aws_eip.elastic_ip.id
   subnet_id     = aws_subnet.public_subnet[0].id ###  hero 0 means us-east-1a
 
@@ -139,7 +139,7 @@ resource "aws_route" "private" {
   route_table_id            = aws_route_table.private.id
   destination_cidr_block    = "0.0.0.0/0"
   ### this is for nat gateway
-  nat_gateway_id = aws_nat_gateway.this.id
+  nat_gateway_id = aws_nat_gateway.main.id
   }
 
 # database-aws-route-block
@@ -147,5 +147,5 @@ resource "aws_route" "database" {
   route_table_id            = aws_route_table.database.id
   destination_cidr_block    = "0.0.0.0/0"
    ### this is for nat gateway
-  nat_gateway_id = aws_nat_gateway.this.id
+  nat_gateway_id = aws_nat_gateway.main.id
 }
