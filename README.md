@@ -1,6 +1,8 @@
+</> Markdown
+
 ### Terraform aws-vpc-module
 
-This module creates following delow resources:-
+This module creates following below Resources Createds:-
 ----------------------------------------------
 1.VPC
 2.internet-gateway(IGW) with VPC association.
@@ -15,4 +17,4 @@ This module creates following delow resources:-
 ### inputs ###
 
 project- (Required) Stringtype. user should pass the project name
-environment- (Required) Stringtype. user should pass the environment name, values should be one of dev, uat, qa and prod..
+environment- (Required) Stringtype. user should pass the environment name, values should be one of dev, uat, qa and prod
