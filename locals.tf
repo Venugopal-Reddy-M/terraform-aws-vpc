@@ -85,5 +85,5 @@ locals {
         Name = "${var.project}-${var.environment}-peering"
     },
     var.peering_tags
-  }
+    )
 }
