@@ -1,6 +1,6 @@
 ### Terraform aws-vpc-module
 
-This module creates following below Resources Createds:-
+This module creates following below Resources:-
 ----------------------------------------------
 1. VPC
 2. internet-gateway(IGW) with VPC association.
