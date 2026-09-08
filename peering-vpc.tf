@@ -2,7 +2,7 @@ resource "aws_vpc_peering_connection" "default" {
     count = var.is_peering_enabled ? 1 : 0
   #peer_owner_id = var.peer_owner_id
   #accepter
-  peer_vpc_id   = aws_vpc.default.id
+  peer_vpc_id   = data.aws_vpc.default.id
   vpc_id        = aws_vpc.main.id
 
   accepter {
