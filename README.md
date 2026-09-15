@@ -12,7 +12,7 @@ This module creates following below Resources:-
 8. VPC peering with default vpc on condition.
 9. Route table entries through peering
 
-### inputs ###
+### inputs ####
 
 project- (Required) Stringtype. user should pass the project name
 environment- (Required) Stringtype. user should pass the environment name, values should be one of dev, uat, qa and prod
